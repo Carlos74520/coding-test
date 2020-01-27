@@ -1,0 +1,62 @@
+//Declare Variables
+float pixels[] = {67, 0, 33, 25, 52, 22, 22, 72, 31, 21, 17, 51, 58, 74, 55, 14, 60, 67, 24, 10, 80, 49, 32, 49, 59, 46, 0, 3, 77, 57, 43, 71, 18, 76, 21, 58, 0, 29, 63, 50, 16, 13, 78, 52, 65, 9, 4, 44, 49, 8, 31, 12, 29, 58, 41, 0, 20, 75, 64, 26, 7, 47, 73, 12};
+float usedPixels[7][7];
+int counter = 0;
+int tempCounter = 0;
+int midColumn = 0;
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Finds where 'hot' is in pixels[];
+  Serial.print("hello");
+  delay(3000);
+  for (int i = 0; i < 9; i++) {
+    Serial.print(" I: ");
+    Serial.println(i);
+    Serial.println("");
+    int tempCounter = 0; //counter to append to the usedPixels array
+    delay(10);
+    for (int x = 0; x < 8; x++) {
+      delay(10);
+      counter += 1;
+      Serial.print("COUNTER:  ");
+      Serial.print(counter);
+      Serial.print("PIXEL VALUE: ");
+      Serial.println(pixels[counter]);
+      Serial.println(" ");
+      Serial.print(i);
+      Serial.print(" ");
+      Serial.print(x);
+      Serial.println(" ");
+      if (pixels[counter] > 40) {
+        delay(10);
+        usedPixels[i][tempCounter] = counter;
+        tempCounter += 1;
+      }
+    }
+   if(i == 8) break; 
+   delay(1000);
+  }
+  delay(3000);
+  //int usedLength = sizeof(usedPixels) / sizeof(usedPixels[0]);
+  Serial.print("you are here");
+  Serial.println("  ");
+  counter = 0;
+  tempCounter = 0;
+  //find middle column
+  for (int x = 0; x <= 6; x++) {
+    if (usedPixels[x][0] != 0) {
+      midColumn += x + 1;
+    }
+  }
+  midColumn = round(midColumn / 2);
+  for (int x = 0; x < 7; x++) {
+    for (int i = 0; i < 7; i++) {
+      Serial.print(usedPixels[x][i]);
+    }
+    Serial.println("");
+  }
+  delay(1000);
+}
